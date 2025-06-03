@@ -3,8 +3,8 @@ import { LoginForm } from "../components/LoginForm";
 
 const LoginLayout = () => {
 	return (
-		<div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-			<div className="w-full max-w-sm">
+		<div className="bg-gradient-to-br from-slate-900 to-slate-800 min-h-screen p-4 sm:p-8 font-sans flex justify-center items-center">
+			<div className="container mx-auto w-full max-w-sm">
 				<LoginForm />
 			</div>
 		</div>

@@ -3,12 +3,11 @@ import { ref, onValue, update } from "firebase/database";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { db } from "./Firebase";
 
-// Icons
-import { Activity } from "lucide-react";
 import SensorMonitoring from "./SensorMonitoring";
 import SistemControl from "./SistemControl";
 import LogAktivitas from "./LogAktivitas";
 import HeaderInfo from "./Header";
+import Footer from "./Footer";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -275,6 +274,7 @@ const FireDetectionDashboard = () => {
 						getGasColorClass={getGasColorClass}
 						getStatusBadgeVariant={getStatusBadgeVariant}
 						DANGER_LEVELS={DANGER_LEVELS}
+						overallSafetyStatus={overallSafetyStatus}
 					/>
 
 					{/* System Control Section */}
@@ -293,12 +293,7 @@ const FireDetectionDashboard = () => {
 				</main>
 
 				{/* Futuristic Footer */}
-				<footer className="text-center mt-12 py-8 text-sm text-slate-500 border-t border-slate-700/50">
-					<p className="flex items-center justify-center">
-						<Activity className="h-4 w-4 mr-2 text-cyan-400" />
-						&copy; {new Date().getFullYear()} SMART HOME SAFETY PROTOTYPE
-					</p>
-				</footer>
+				<Footer />
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
 	Card,
 	CardHeader,
@@ -12,24 +12,25 @@ import { Badge } from "@/components/ui/badge";
 import { Settings } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-	AlertTriangle,
-	ShieldCheck,
-	Zap,
-	Database,
-	Wind,
-	Droplets,
-	Shield,
-} from "lucide-react";
+import { Database, Wind, Droplets, Shield } from "lucide-react";
 
 const SistemControl = ({
 	controlData,
 	toggleMode,
 	setActuator,
 	isConnected,
-	overallSafetyStatus,
-	generateTimestamp,
 }) => {
+	const generateTimestamp = useCallback(() => {
+		return new Date().toLocaleString("id-ID", {
+			day: "2-digit",
+			month: "2-digit",
+			year: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+			second: "2-digit",
+			hour12: false,
+		});
+	}, []);
 	return (
 		<section>
 			<h2 className="text-xl font-semibold mb-6 text-cyan-400 flex items-center">
@@ -41,7 +42,7 @@ const SistemControl = ({
 
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 				{/* System Status Card */}
-				<Card className="bg-slate-800/90 border border-slate-700/50 rounded-xl shadow-lg shadow-slate-950/30 backdrop-blur-sm hover:shadow-purple-500/10 transition-all duration-500 md:col-span-2">
+				<Card className="bg-slate-800/90 border border-slate-700/50 rounded-xl shadow-lg shadow-slate-950/30 backdrop-blur-sm hover:shadow-purple-500/10 transition-all duration-500">
 					<CardHeader>
 						<CardTitle className="text-base flex items-center text-slate-300">
 							Status Sistem
@@ -92,47 +93,6 @@ const SistemControl = ({
 						>
 							Ganti ke {controlData.mode === "auto" ? "MANUAL" : "AUTOMATIS"}
 						</Button>
-					</CardFooter>
-				</Card>
-
-				{/* Safety Status Card */}
-				<Card
-					className={`border-2 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 ${
-						overallSafetyStatus
-							? "border-red-500/50 bg-red-900/10 hover:shadow-red-500/10 animate-pulse"
-							: "border-emerald-500/50 bg-emerald-900/10 hover:shadow-emerald-500/10"
-					}`}
-				>
-					<CardHeader>
-						<CardTitle className="text-base text-slate-300">
-							Status Keamanan
-						</CardTitle>
-					</CardHeader>
-					<CardContent className="flex items-center ">
-						{overallSafetyStatus ? (
-							<AlertTriangle
-								size={28}
-								className="mr-2 text-red-400 animate-pulse"
-							/>
-						) : (
-							<ShieldCheck size={28} className="mr-2 text-emerald-400" />
-						)}
-						<Badge
-							className={`text-md px-4 py-1.5 rounded-md font-semibold text-white ${
-								!overallSafetyStatus
-									? "bg-gradient-to-r from-emerald-600 to-emerald-500"
-									: "bg-gradient-to-r from-red-600 to-red-500"
-							}`}
-						>
-							{overallSafetyStatus ? "BAHAYA" : "AMAN"}
-						</Badge>
-					</CardContent>
-					<CardFooter>
-						<p className="text-xs text-slate-400">
-							{overallSafetyStatus
-								? "Sistem dalam bahaya, segera periksa!"
-								: "Sistem aman, tidak ada ancaman terdeteksi."}
-						</p>
 					</CardFooter>
 				</Card>
 			</div>
